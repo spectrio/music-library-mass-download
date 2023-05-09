@@ -46,7 +46,6 @@ def setup_logger(logger_name):
     file_handler = logging.FileHandler(os.path.join(LOG_ROOT, logger_name + '.log'), mode='w')
     file_handler.setFormatter(format)
     logger.setLevel(logging.INFO)
-    # logger.addHandler(console_handler)
     logger.addHandler(file_handler)
     
     return logger
@@ -95,12 +94,12 @@ def download_file_from_rackspace(data):
             with open(media_output_path, 'wb') as f:
                 f.write(response.content)
             
-            #check if file is a valid mp3 file
+            # Check if file is a valid mp3 file
             info = eyed3.load(media_output_path) 
             if not info:
                 is_valid_log = ' [[MP3 NOT VALID]]'
                     
-            #log info into log file
+            # Log info into log file
             logger.info(f'DOWNLOADED {str(media_output_path)}' + is_valid_log)
         
         if (ii+1) % 1000 == 0:
